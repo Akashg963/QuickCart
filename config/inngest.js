@@ -1,4 +1,3 @@
-// src/inngest/client.ts
 import { Inngest } from "inngest";
 import dbConnect from "@/config/db";
 import User from "@/models/User";
