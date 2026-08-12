@@ -7,6 +7,8 @@ import { useState } from "react";
 
 const AddAddress = () => {
 
+    const {getToken, router} = useAppContext();
+
     const [address, setAddress] = useState({
         fullName: '',
         phoneNumber: '',
@@ -18,9 +20,24 @@ const AddAddress = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-
+        try {
+            const token = await getToken();
+            const { data } = await axios.post("/api/user/add-address", address, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (data.success) {
+                toast.success(data.message);
+                router.push("/cart");
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error.message || "An error occurred while adding the address.");
+        }
     }
-
+    
     return (
         <>
             <Navbar />

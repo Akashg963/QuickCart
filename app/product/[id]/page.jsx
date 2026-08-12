@@ -20,13 +20,15 @@ const Product = () => {
     const [productData, setProductData] = useState(null);
 
     const fetchProductData = async () => {
-        const product = products.find(product => product._id === id);
+        const product = (products || []).find(
+  (product) => product._id === id
+);
         setProductData(product);
     }
 
     useEffect(() => {
         fetchProductData();
-    }, [id, products.length])
+    }, [id, products]);
 
     return productData ? (<>
         <Navbar />

@@ -11,7 +11,27 @@ const OrderSummary = () => {
   const [userAddresses, setUserAddresses] = useState([]);
 
   const fetchUserAddresses = async () => {
-    setUserAddresses(addressDummyData);
+    try {
+      const token = await getToken();
+      // Simulate API call to fetch user addresses
+      // Replace this with your actual API call
+      const { data } = await axios.get("/api/user/addresses", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (data.success) {
+      setUserAddresses(data.addresses || []);
+      if (data.addresses && data.addresses.length > 0) {
+        setSelectedAddress(data.addresses[0]); // Set the first address as selected by default
+      }else {
+        toast.error(data.message || "No addresses found. Please add an address.");
+      }
+    } 
+  }
+    catch (error) {
+      toast.error(error.message || "Error fetching user addresses");
+    }
   }
 
   const handleAddressSelect = (address) => {
