@@ -6,6 +6,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddAddress = () => {
 
@@ -100,10 +102,12 @@ const AddAddress = () => {
                     </button>
                 </form>
                 <Image
-                    className="md:mr-16 mt-16 md:mt-0"
-                    src={assets.my_location_image}
-                    alt="my_location_image"
-                />
+    src={assets.my_location_image}
+    alt="My Location"
+    width={500}
+    height={500}
+    className="md:mr-16 mt-16 md:mt-0"
+/>
             </div>
             <Footer />
         </>
